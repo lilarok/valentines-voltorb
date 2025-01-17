@@ -70,14 +70,13 @@ const App: React.FC = () => {
   const [gameWon, setGameWon] = useState(false);
 
   useEffect(() => {
-    const allTilesFlipped = board.every((row) =>
-      row.every((tile) => tile.flipped || tile.type === "voltorb")
-    );
-    const noVoltorbsFlipped = board.every((row) =>
-      row.every((tile) => tile.type !== "voltorb" || tile.flipped)
+    // Check if all non-Voltorb tiles are flipped
+    const allSafeTilesFlipped = board.every((row) =>
+      row.every((tile) => tile.type === "voltorb" || tile.flipped)
     );
 
-    if (allTilesFlipped && noVoltorbsFlipped) {
+    // If all non-Voltorb tiles are flipped, the game is won
+    if (allSafeTilesFlipped) {
       setEndTime(new Date());
       setGameWon(true);
     }
