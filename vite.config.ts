@@ -3,7 +3,8 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [react()],
+  base: "/valentines-voltorb/",
   server: {
-    port: 5173, // Optional: specify the port explicitly
+    port: 5173,
   },
 });
