@@ -70,14 +70,18 @@ const App: React.FC = () => {
   const [gameWon, setGameWon] = useState(false);
 
   useEffect(() => {
-    if (
-      board.every((row) => row.every((tile) => tile.flipped)) &&
-      board.every((row) => row.every((tile) => tile.type !== "voltorb"))
-    ) {
+    const allTilesFlipped = board.every((row) =>
+      row.every((tile) => tile.flipped || tile.type === "voltorb")
+    );
+    const noVoltorbsFlipped = board.every((row) =>
+      row.every((tile) => tile.type !== "voltorb" || tile.flipped)
+    );
+
+    if (allTilesFlipped && noVoltorbsFlipped) {
       setEndTime(new Date());
       setGameWon(true);
     }
-  });
+  }, [board]);
 
   const resetGame = useCallback(() => {
     setScore(0);
